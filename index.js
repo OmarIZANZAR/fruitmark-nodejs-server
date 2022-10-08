@@ -1,21 +1,14 @@
 const express = require('express')
 const cors = require('cors')
-const dotenv = require('dotenv')
 const ConnectDB = require("./config/db.js")
-
-// DOTENV CONFIGURATION:
-dotenv.config()
 
 // server and database launch:
 ConnectDB()
 const app = express()
-dotenv.config({ path: './config/.env' })
 
 // BODY PARSERS:
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-// CORS:
 app.use(cors())
 
 // ROUTERS:
@@ -29,9 +22,9 @@ const usersRouter = require('./routes/users.js')
 app.use('/users', usersRouter)
 
 // SERVER:
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
     res.send("hello")
 })
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=> console.log(`server running on port ${PORT}...`))
+app.listen(PORT, () => console.log(`server running on port ${PORT}...`))

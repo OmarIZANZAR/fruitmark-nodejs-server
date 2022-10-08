@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
-const { DB_URI } = require('./env.js')
+
+let mongodb_uri = "mongodb://localhost:27017/fruitmark"
+
+if(process.env.NODE_ENV == "production") {
+    mongodb_uri = process.env.MONGODB_URI
+}
 
 const connOptions = {
     useNewUrlParser: true,
@@ -9,7 +14,7 @@ const connOptions = {
 const ConnectDB = async () => {
     return new Promise(async (resolve, reject)=>{
         try {
-            const conn = await mongoose.connect(process.env.MONGODB_URI, connOptions)
+            const conn = await mongoose.connect(mongodb_uri, connOptions)
             console.log(`mongodb connected to db: ${conn.connection.name}...`)
             resolve(conn)
     
@@ -17,7 +22,6 @@ const ConnectDB = async () => {
             console.log('mongodb connection error')
             console.error(error)
             process.exit(1)
-            reject(error)
         }
     })
 } 

@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
 
             transaction.content.map( newElement => {
                 if( newElement.fruit === element.fruit ){
-                    console.log(newElement.fruit)
+                    // console.log(newElement.fruit)
 
                     if( element.quantity < newElement.quantity ){
                         invalid = true
